@@ -6,8 +6,9 @@ postRouter.get("/posts", postController.getPosts);
 
 postRouter.get("/posts/:id", postController.getPostById);
 
-postRouter.post("/posts/create", postController.createPost);
+postRouter.post("/posts/", postController.createPost);
 
-postRouter.delete("/posts/delete/:id", postController.deletePostById);
+postRouter.delete("/posts/:id", postController.deletePostById);
 
+postRouter.patch("posts/:id", postController.patchPostById)
 module.exports = postRouter;
