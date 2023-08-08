@@ -2,10 +2,10 @@ const postController = require("../controllers/postController");
 const express = require("express");
 const postRouter = express.Router();
 
-postRouter.get("/", postController.getPosts);
+postRouter.get("posts/", postController.getPosts);
 
-postRouter.get("/:id", postController.getPostById)
+postRouter.get("posts/:id", postController.getPostById)
 
-postRouter.post("/create", postController.createPost);
+postRouter.post("posts/create", postController.createPost);
 
 module.exports = postRouter;
