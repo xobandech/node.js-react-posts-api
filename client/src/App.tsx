@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Post } from "./types/types"
+import PostComponent from "./components/PostComponent.tsx";
 
 function App() {
   const [posts, setPosts] = useState<Post[]>([])
@@ -19,7 +20,9 @@ function App() {
 
   return (
     <div className="">
-      Post page
+      {posts && posts.map(post => {
+        return <PostComponent post={post} />
+      })}
     </div>
   );
 }
