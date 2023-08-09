@@ -10,5 +10,6 @@ postRouter.post("/posts/", postController.createPost);
 
 postRouter.delete("/posts/:id", postController.deletePostById);
 
-postRouter.patch("posts/:id", postController.patchPostById)
+postRouter.patch("/posts/:id", postController.patchPostById);
+
 module.exports = postRouter;
