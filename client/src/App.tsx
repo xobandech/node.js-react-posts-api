@@ -1,28 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { Post } from "./types/types"
-import PostComponent from "./components/PostComponent.tsx";
-
+import React from "react";
+import { Route, Routes } from "react-router-dom";
+import NavBarComponent from "./components/NavBarComponent.tsx";
+import MainPage from "./pages/MainPage.tsx";
+import EditPage from "./pages/EditPage.tsx"
 function App() {
-  const [posts, setPosts] = useState<Post[]>([])
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try { 
-        const response = await fetch("/posts")
-        const posts = await response.json();
-        setPosts(posts)
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-      }
-    };
-    
-    fetchPosts();
-  }, []);
-
   return (
-    <div className="">
-      {posts && posts.map(post => {
-        return <PostComponent post={post} />
-      })}
+    <div>
+      <NavBarComponent />
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/edit" element={<EditPage />} />
+        {/* <Route path="/delete" element={<DeletePage />} /> */}
+        {/* <Route path="/add" element={<AddPage />} /> */}
+      </Routes>
     </div>
   );
 }
