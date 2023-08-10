@@ -19,17 +19,19 @@ const EditPage = () => {
             <label htmlFor="postToEdit">ID of post to Edit</label>
             <input
               type="text"
+              value={editPostId}
               onChange={(e) => setEditPostId(e.target.value)}
               className="outline outline-1 my-2"
             />
           </div>
           <button
             className="h-1/2 bg-gray-300 rounded-md px-2 outline outline-1"
-            onClick={() =>
-              searchPostsById(editPostId).then((data) =>
+            onClick={async () => {
+              await searchPostsById(editPostId).then((data) =>
                 setEditPostFields(data)
-              )
-            }
+              );
+              setEditPostId("");
+            }}
           >
             Search
           </button>
@@ -63,7 +65,16 @@ const EditPage = () => {
             })
           }
         />
-        <button onClick={() => editPostById({ id: +editPostFields.id, title: editPostFields.title, message: editPostFields.message })} className="max-h-[30px] h-[50%] bg-gray-300 rounded-md px-2 outline outline-1 w-1/2 mx-auto">
+        <button
+          onClick={() =>
+            editPostById({
+              id: +editPostFields.id,
+              title: editPostFields.title,
+              message: editPostFields.message,
+            })
+          }
+          className="max-h-[30px] h-[50%] bg-gray-300 rounded-md px-2 outline outline-1 w-1/2 mx-auto"
+        >
           Edit
         </button>
       </div>
