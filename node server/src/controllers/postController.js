@@ -52,25 +52,23 @@ exports.createPost = async (req, res) => {
 };
 
 exports.patchPostById = async (req, res) => {
-  const id = parseInt(req.params.id);
-  const { title, message } = req.body;
-
+  const { id, title, message } = req.query
   try {
     let updatedPost;
 
     if (title && message) {
       updatedPost = await prisma.post.update({
-        where: { id: id },
+        where: { id: +id },
         data: { title, message },
       });
     } else if (title) {
       updatedPost = await prisma.post.update({
-        where: { id: id },
+        where: { id: +id },
         data: { title },
       });
     } else if (message) {
       updatedPost = await prisma.post.update({
-        where: { id: id },
+        where: { id: +id },
         data: { message },
       });
     } else {
