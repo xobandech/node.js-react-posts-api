@@ -25,7 +25,7 @@ const EditPage = () => {
             />
           </div>
           <button
-            className="h-1/2 bg-gray-300 rounded-md px-2 outline outline-1"
+            className="bg-gray-300 rounded-md my-auto ml-4 px-2 outline outline-1"
             onClick={async () => {
               await searchPostsById(editPostId).then((data) =>
                 setEditPostFields(data)
