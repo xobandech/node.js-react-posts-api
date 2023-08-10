@@ -13,6 +13,7 @@ const FindPostComponent = () => {
     title: "",
     message: "",
   });
+  const [editPostId, setEditPostId] = useState("")
   const searchPosts = async () => {
     await fetch(
       `/posts/search?id=${searchFormFields.id}&title=${searchFormFields.title}&message=${searchFormFields.message}`
@@ -72,9 +73,9 @@ const FindPostComponent = () => {
             <div className="flex ">
               <div>
                 <label htmlFor="postToEdit">ID of post to Edit</label>
-                <input type="text" onChange={(e) => setEditPostFields({...editPostFields, id: e.target.value})} className="outline outline-1 my-2" />
+                <input type="text" onChange={(e) => setEditPostId(e.target.value)} className="outline outline-1 my-2" />
               </div>
-              <button className="h-1/2 bg-gray-300 rounded-md px-2 outline outline-1" onClick={() => searchPostsById(editPostFields.id).then(data => setEditPostFields(data))}>
+              <button className="h-1/2 bg-gray-300 rounded-md px-2 outline outline-1" onClick={() => searchPostsById(editPostId).then(data => setEditPostFields(data))}>
                 Search
               </button>
             </div>
