@@ -13,10 +13,10 @@ const FindPostComponent = () => {
   });
 
   return (
-    <div className="m-2">
+    <div className="m-2 sm:w-1/3">
       <div>
         <div className="">
-          <form className="flex flex-col w-1/3 [&>label]:leading-[5px]">
+          <form className="flex flex-col [&>label]:leading-[5px]">
             <label htmlFor="id">Id</label>
             <input
               type="text"
@@ -53,6 +53,7 @@ const FindPostComponent = () => {
           </form>
         </div>
         <button
+        className="bg-gray-300 rounded-md px-2 outline outline-1 mb-2"
           onClick={() =>
             searchPosts({
               id: +searchFormFields.id,
@@ -61,11 +62,11 @@ const FindPostComponent = () => {
             }).then((posts) => setPosts(posts))
           }
         >
-          Search for post
+          Search for posts
         </button>
       </div>
       <textarea
-        className="outline outline-1 w-[50%] h-[100%]"
+        className="outline outline-1 w-full h-[100%]"
         name="Post"
         disabled
         rows={10}
