@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { Post } from "../types/types";
-import { searchPostsById, editPostById } from "../functions/search";
+import {
+  searchPosts,
+} from "../functions/search";
+
 const FindPostComponent = () => {
   const [posts, setPosts] = useState<Post[]>();
   const [searchFormFields, setSearchFormFields] = useState({
@@ -8,21 +11,11 @@ const FindPostComponent = () => {
     title: "",
     message: "",
   });
- 
-  const searchPosts = async () => {
-    await fetch(
-      `/posts/search?id=${searchFormFields.id}&title=${searchFormFields.title}&message=${searchFormFields.message}`
-    )
-      .then((res) => res.json())
-      .then((data) => setPosts(data));
-  };
-
-
 
   return (
     <div className="m-2">
       <div>
-        <div className="flex justify-around w-full">
+        <div className="">
           <form className="flex flex-col w-1/3 [&>label]:leading-[5px]">
             <label htmlFor="id">Id</label>
             <input
@@ -59,7 +52,17 @@ const FindPostComponent = () => {
             />
           </form>
         </div>
-        <button onClick={searchPosts}>Search for post</button>
+        <button
+          onClick={() =>
+            searchPosts({
+              id: +searchFormFields.id,
+              title: searchFormFields.title,
+              message: searchFormFields.message,
+            }).then((posts) => setPosts(posts))
+          }
+        >
+          Search for post
+        </button>
       </div>
       <textarea
         className="outline outline-1 w-[50%] h-[100%]"
