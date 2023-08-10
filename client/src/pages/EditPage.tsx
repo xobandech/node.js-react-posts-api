@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import FindPostComponent from "../components/FindPostComponent";
-import { searchPostsById } from "../functions/search";
+import { searchPostsById, editPostById } from "../functions/search";
 
 const EditPage = () => {
   const [editPostFields, setEditPostFields] = useState({
@@ -63,7 +63,7 @@ const EditPage = () => {
             })
           }
         />
-        <button className="max-h-[30px] h-[50%] bg-gray-300 rounded-md px-2 outline outline-1 w-1/2 mx-auto">
+        <button onClick={() => editPostById({ id: +editPostFields.id, title: editPostFields.title, message: editPostFields.message })} className="max-h-[30px] h-[50%] bg-gray-300 rounded-md px-2 outline outline-1 w-1/2 mx-auto">
           Edit
         </button>
       </div>
