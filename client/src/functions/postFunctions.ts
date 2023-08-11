@@ -6,12 +6,15 @@ export const searchPostsById = async (id: string) => {
 
 export const editPostById = async ({ id, title, message }: Post) => {
   try {
-    const response = await fetch(`/posts/edit?id=${id}&title=${title}&message=${message}`, {
-      method: "PATCH"
-    });
+    const response = await fetch(
+      `/posts/edit?id=${id}&title=${title}&message=${message}`,
+      {
+        method: "PATCH",
+      }
+    );
 
     if (response.ok) {
-      return response.json(); 
+      return response.json();
     } else {
       throw new Error("Edit post request failed");
     }
@@ -21,10 +24,25 @@ export const editPostById = async ({ id, title, message }: Post) => {
   }
 };
 
+export const deletePost = async (id: string) => {
+  try {
+    const response = await fetch(`/posts?id=${id}`, { method: "DELETE" });
+
+    if (response.ok) {
+      return response.json();
+    } else {
+      throw new Error("Delete post request failed");
+    }
+  } catch (error) {
+    console.error("An error occurred while deleting the post:", error);
+    throw error;
+  }
+};
+
 export const createPost = async ({ title, message }: Post) => {
   try {
     const response = await fetch(`/posts?title=${title}&message=${message}`, {
-      method: "POST"
+      method: "POST",
     });
 
     if (response.ok) {
