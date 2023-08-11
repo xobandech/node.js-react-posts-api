@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import { Post } from "../types/types";
 import PostComponent from "../components/PostComponent.tsx";
 

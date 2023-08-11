@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import FindPostComponent from "../components/FindPostComponent";
 import { createPost } from "../functions/postFunctions";
 

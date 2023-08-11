@@ -1,4 +1,3 @@
-import React from "react";
 import { Route, Routes } from "react-router-dom";
 import NavBarComponent from "./components/NavBarComponent.tsx";
 import MainPage from "./pages/MainPage.tsx";
