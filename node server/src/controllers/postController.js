@@ -2,24 +2,28 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 exports.getPosts = async (req, res) => {
-  await prisma.post
-    .findMany()
-    .then((posts) => {
-      res.send(posts);
-    })
-    .catch((error) => {
-      console.error(error);
-      res.status(500).send("Failed to fetch posts.");
-    });
-  res.end;
+  try {
+    const posts = await prisma.post.findMany();
+    res.json(posts);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch posts." });
+  } finally {
+    await prisma.$disconnect();
+  }
 };
 
 exports.getPostById = async (req, res) => {
   const { id } = req.params;
-  await prisma.post
-    .findUnique({ where: { id: +id } })
-    .then((post) => res.send(post));
-  res.end;
+  try {
+    const post = await prisma.post.findUnique({ where: { id: +id } });
+    res.json(post);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch post." });
+  } finally {
+    await prisma.$disconnect();
+  }
 };
 
 exports.deletePostById = async (req, res) => {
@@ -35,52 +39,54 @@ exports.deletePostById = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: "Failed to delete post." });
+  } finally {
+    await prisma.$disconnect();
   }
 };
 
 exports.createPost = async (req, res) => {
-  const { title, message } = req.body;
+  let { title, message } = req.body;
 
-  await prisma.post
-    .create({ data: { title, message } })
-    .then((createdPost) => res.status(200).send(createdPost))
-    .catch((error) => {
-      console.error(error);
-      res.status(500).send("Failed to create post.");
-    });
-  res.end;
+  if (req.query.title && req.query.message) {
+    title = req.query.title;
+    message = req.query.message;
+  }
+
+  try {
+    const createdPost = await prisma.post.create({ data: { title, message } });
+    res.status(200).json(createdPost);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to create post." });
+  } finally {
+    await prisma.$disconnect();
+  }
 };
 
 exports.patchPostById = async (req, res) => {
-  const { id, title, message } = req.query
+  const { id, title, message } = req.query;
+  
   try {
+    if (!id) {
+      return res.status(400).json({ error: "Missing post ID." });
+    }
+
     let updatedPost;
 
-    if (title && message) {
+    if (title || message) {
       updatedPost = await prisma.post.update({
         where: { id: +id },
         data: { title, message },
       });
-    } else if (title) {
-      updatedPost = await prisma.post.update({
-        where: { id: +id },
-        data: { title },
-      });
-    } else if (message) {
-      updatedPost = await prisma.post.update({
-        where: { id: +id },
-        data: { message },
-      });
+      res.status(200).json({ success: true, data: updatedPost });
     } else {
-      return res
-        .status(400)
-        .json({ success: false, error: "No fields to update." });
+      res.status(400).json({ success: false, error: "No fields to update." });
     }
-
-    res.status(200).json({ success: true, data: updatedPost });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, error: "Failed to update post." });
+  } finally {
+    await prisma.$disconnect();
   }
 };
 
@@ -106,5 +112,7 @@ exports.searchPosts = async (req, res) => {
   } catch (error) {
     console.error("Error searching posts:", error);
     res.status(500).json({ error: "An error occurred while searching posts." });
+  } finally {
+    await prisma.$disconnect();
   }
 };
