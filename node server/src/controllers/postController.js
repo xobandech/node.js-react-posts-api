@@ -27,7 +27,7 @@ exports.getPostById = async (req, res) => {
 };
 
 exports.deletePostById = async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.query;
 
   try {
     const deletedPost = await prisma.post.delete({ where: { id: +id } });
