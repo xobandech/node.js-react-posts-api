@@ -74,7 +74,7 @@ const FindPostComponent = () => {
           posts
             ? posts.map((post) => {
                 return `{
-    id: ${post.id.toLocaleString()},
+    id: ${post.id?.toLocaleString()},
     title: ${post.title ? post.title : "undefined"},
     message: ${post.message ? post.message : "undefined"}
 }\n`;
