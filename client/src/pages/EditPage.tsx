@@ -71,7 +71,7 @@ const EditPage = () => {
               id: +editPostFields.id,
               title: editPostFields.title,
               message: editPostFields.message,
-            })
+            }).then(() => window.location.href = `/edit?id=${editPostFields.id}&title=${editPostFields.title}&message=${editPostFields.message}`)
           }
           className="max-h-[30px] h-[50%] bg-gray-300 rounded-md px-2 outline outline-1 w-1/2 mx-auto"
         >
