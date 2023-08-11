@@ -12,6 +12,6 @@ postRouter.get('/posts/search', postController.searchPosts);
 
 postRouter.get("/posts/:id", postController.getPostById);       
 
-postRouter.delete("/posts/:id", postController.deletePostById);
+postRouter.delete("/posts", postController.deletePostById);
 
 module.exports = postRouter;
