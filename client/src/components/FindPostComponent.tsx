@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Post } from "../types/types";
 import {
   searchPosts,
-} from "../functions/search";
+} from "../functions/postFunctions";
 
 const FindPostComponent = () => {
   const [posts, setPosts] = useState<Post[]>();

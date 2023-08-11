@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import FindPostComponent from "../components/FindPostComponent";
-import { searchPostsById, editPostById } from "../functions/search";
+import { searchPostsById, editPostById } from "../functions/postFunctions";
 
 const EditPage = () => {
   const [editPostFields, setEditPostFields] = useState({
